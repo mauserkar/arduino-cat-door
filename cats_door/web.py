@@ -13,7 +13,7 @@ def index_html():
         <button id="led-off" class="button red">Turn LED OFF</button>
         <button id="option1" class="button">Option 1</button>
         <button id="option2" class="button">Option 2</button>
-        <script src="scripts.js"></script>
+        <script src="script.js"></script>
     </body>
     </html>
     """

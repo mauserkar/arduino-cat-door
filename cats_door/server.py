@@ -2,6 +2,7 @@ import socket
 
 from cats_door.config import env
 from cats_door.web import index_html
+from cats_door.utils import parse_request_to_dict
 
 
 def start_server():
@@ -9,14 +10,15 @@ def start_server():
     s = socket.socket()
     s.bind(addr)
     s.listen(5)
-    print("server http://{}:80".format(env.network_ip))
+    print("server http://{}:80".format(env["network_ip"]))
 
     while True:
         cl, addr = s.accept()
         request = cl.recv(1024).decode("utf-8")
+        request_dict = parse_request_to_dict(request)
 
         # print("client ip:", addr[0])
-        # print("request:", request)
+        print(request_dict)
 
         if "/?led=on" in request:
             # led.value(1)
