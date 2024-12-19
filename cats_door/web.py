@@ -1,6 +1,5 @@
 def index_html():
-    return """
-    <!DOCTYPE html>
+    return """<!DOCTYPE html>
     <html lang="es">
     <head>
         <meta charset="UTF-8">
@@ -15,5 +14,4 @@ def index_html():
         <button id="option2" class="button">Option 2</button>
         <script src="script.js"></script>
     </body>
-    </html>
-    """
+    </html>"""
