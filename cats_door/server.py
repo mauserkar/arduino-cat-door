@@ -1,9 +1,7 @@
 import socket
 
-import cats_door.logger as logger
 from cats_door.config import env
-from cats_door.web import index_html
-from cats_door.utils import parse_request_to_dict
+from cats_door.web import index_html, off_html, on_html
 
 
 def start_server():
@@ -11,29 +9,28 @@ def start_server():
     s = socket.socket()
     s.bind(addr)
     s.listen(5)
-    logger.info(f'server http://{env["network_ip"]}:80')
+    print(f'INFO: server http://{env["network_ip"]}:80')
 
     while True:
         cl, addr = s.accept()
-        request = cl.recv(1024).decode("utf-8")
-        request_dict = parse_request_to_dict(request)
+        decode_request = cl.recv(1024).decode("utf-8")
+        request = decode_request.splitlines()[0]
 
-        # print("client ip:", addr[0])
-        logger.debug(request_dict)
+        print(f"INFO: {addr[0]} {request}")
 
-        if "/?led=on" in request:
+        if "/on.html" in request:
             # led.value(1)
             # print(led.value())
-            print("debug: led on")
+            response = on_html()
 
-        elif "/?led=off" in request:
+        elif "/off.html" in request:
             # led.value(0)
             # print(led.value())
-            print("debug: led off")
+            response = off_html()
         else:
             response = index_html()
 
         # HTTP response
         cl.send("HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n")
-        cl.send("<html><body><h1>{}</h1></body></html>".format(response))
+        cl.send(response)
         cl.close()

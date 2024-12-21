@@ -1,6 +1,3 @@
-import cats_door.logger as logger
-
-
 def read_env(file_path):
     """
     Reads a .env file and returns a dictionary of environment variables.
@@ -23,7 +20,7 @@ def read_env(file_path):
                     value = value[1:-1]
                 env_vars[key.strip()] = value.strip()
     except Exception as e:
-        logger.error(f"Error reading .env file: {e}")
+        print(f"ERROR: reading .env file: {e}")
     return env_vars
 
 

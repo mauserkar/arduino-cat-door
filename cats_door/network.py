@@ -2,7 +2,6 @@ import network
 import time
 
 from cats_door.config import env
-import cats_door.logger as logger
 
 
 def wireless_connect():
@@ -19,4 +18,4 @@ def wireless_connect():
     wlan.connect(env["network_ssid"], env["network_password"])
     while not wlan.isconnected():
         time.sleep(0.5)
-    logger.info(f'Network connected: {env["network_ssid"]}')
+    print(f'INFO: Network connected: {env["network_ssid"]}')
