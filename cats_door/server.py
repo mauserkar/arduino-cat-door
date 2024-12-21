@@ -2,6 +2,7 @@ import socket
 
 from cats_door.config import env
 from cats_door.web import index_html, off_html, on_html
+from cats_door.switch_pin import change_status, status
 
 
 def start_server():
@@ -19,13 +20,11 @@ def start_server():
         print(f"INFO: {addr[0]} {request}")
 
         if "/on.html" in request:
-            # led.value(1)
-            # print(led.value())
+            change_status(1)
             response = on_html()
 
         elif "/off.html" in request:
-            # led.value(0)
-            # print(led.value())
+            change_status(0)
             response = off_html()
         else:
             response = index_html()
